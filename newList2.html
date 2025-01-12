@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center horizontally */
+    }
+    header {
+      width: 100%;
+      background-color: lavender;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Space between items in the header */
+      padding: 10px 20px; /* Add padding on both sides */
+      box-sizing: border-box; /* Ensures padding is included in total width */
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    }
+    header h1 {
+      margin: 0;
+    }
+    header a.nav-button {
+      text-decoration: none;
+      color: white;
+      background-color: purple;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    header a.nav-button:hover {
+      background-color: darkviolet; /* Slightly darker purple on hover */
+    }
+    main {
+      margin-top: 100px; /* Space between header and main content */
+      width: 100%;
+      max-width: 800px; /* Increase maximum width for better layout */
+      text-align: center; /* Center content horizontally */
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: #F2F2F2;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex; /* Use flexbox for layout */
+      justify-content: space-between; /* Space between checkbox and delete button */
+      align-items: center; /* Center align items vertically */
+    }
+    button {
+      background-color: purple;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: grey;
+    }
+    .legend {
+      display: flex;
+      justify-content: space-between; /* Space items evenly across the line */
+      gap: 10px; /* Space between items */
+      margin-top: 20px;
+      flex-wrap: nowrap; /* Prevent wrapping */
+    }
+    .legend div {
+      padding: 5px 15px; /* Add more padding for wider buttons */
+      border-radius: 8px; /* Slightly round corners */
+      font-size: 14px; /* Smaller font size */
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0; /* Prevent items from shrinking */
+      white-space: nowrap; /* Prevent text wrapping */
+    }
+    .legend .exploration {
+      background-color: #FADBD8; /* Light red background */
+      color: #9B3D5A;
+    }
+    .legend .spaceship {
+      background-color: #D6EAF8; /* Light blue background */
+      color: #52B3D9;
+    }
+    .legend .starlog {
+      background-color: #EBDEF0; /* Light purple background */
+      color: #3F2A8D;
+    }
+    .legend .dailytask {
+      background-color: #D4E8FF; /* Light green background */
+      color: #5F7DBF;
+    }
+    .legend .other {
+      background-color: #F4F6F7; /* Light gray background */
+      color: #B0B0B0;
+    }
+    .legend i {
+      margin-right: 5px; /* Add space between icon and text */
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/6224cca092.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <i class="fa-solid fa-star" style="font-size:36px; margin-right: 15px;"></i>
+    <h1>NEBula Notes</h1>
+    <a href="C:\Users\brian\OneDrive\Desktop\NEBula Notes\HomePage.html" class="nav-button">Home</a>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <h2>Your stellar to-do lists begin here!</h2>
+    <h4>Add tasks:</h4>
+    <input id="taskInput" type="text">
+    <button onclick="addTask()">Add</button>
+    
+    <!-- Task Category Legend -->
+    <div class="legend">
+      <div class="exploration">
+        <i class="fa-solid fa-rocket"></i> Exploration
+      </div>
+      <div class="spaceship">
+        <i class="fa-solid fa-tools"></i> Spaceship Maintenance
+      </div>
+      <div class="starlog">
+        <i class="fa-solid fa-book"></i> Star Logs
+      </div>
+      <div class="dailytask">
+        <i class="fa-solid fa-check-circle"></i> Daily Tasks
+      </div>
+      <div class="other">
+        <i class="fa-solid fa-ellipsis-h"></i> Other
+      </div>
+    </div>
+
+    <!-- Task List -->
+    <ul id="taskList"></ul>
+  </main>
+
+  <script>
+    function addTask() {
+      var taskText = document.getElementById("taskInput").value;
+      if (taskText === "") return;
+      var category = prompt("Enter task category: (Exploration, Spaceship Maintenance, Star Logs, Daily Tasks, Other)");
+      if (!category) category = "Other";
+
+      // Create the list item
+      var li = document.createElement("li");
+
+      // Set background color and text color based on category
+      switch (category.toLowerCase()) {
+        case "exploration":
+          li.style.backgroundColor = "#9B3D5A"; // Galactic Red
+          li.style.color = "white"; // White text for better readability
+          break;
+        case "spaceship maintenance":
+          li.style.backgroundColor = "#52B3D9"; // Nebula Blue
+          li.style.color = "white"; // White text for better readability
+          break;
+        case "star logs":
+          li.style.backgroundColor = "#3F2A8D"; // Cosmic Purple
+          li.style.color = "white"; // White text for better readability
+          break;
+        case "daily tasks":
+          li.style.backgroundColor = "#5F7DBF"; // Stardust Blue
+          li.style.color = "black"; // Black text for contrast
+          break;
+        default:
+          li.style.backgroundColor = "#B0B0B0"; // Celestial Gray
+          li.style.color = "black"; // Default text color
+      }
+
+      // Create checkbox
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.onclick = function() {
+        li.classList.toggle("completed");
+      };
+
+      // Create text node for task
+      var text = document.createTextNode(taskText);
+
+      // Create delete button
+      var deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function() {
+        li.remove();
+      };
+
+      // Append elements to the list item
+      li.appendChild(checkbox);
+      li.appendChild(text);
+      li.appendChild(deleteButton);
+
+      // Append the list item to the task list
+      document.getElementById("taskList").appendChild(li);
+
+      // Clear the input field
+      document.getElementById("taskInput").value = "";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      background-color: #D8B7DD;
+      font-family: Arial, sans-serif;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: #F2F2F2;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex; /* Use flexbox for layout */
+      justify-content: space-between; /* Space between checkbox and delete button */
+      align-items: center; /* Center align items vertically */
+    }
+    button {
+      background-color: purple;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px 10px; /* Add some padding to the button */
+    }
+    .completed {
+      text-decoration: line-through;
+      color: grey;
+    }
+    .legend {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .legend div {
+      margin: 5px;
+    }
+    .exploration { color: #9B3D5A; } /* Galactic Red */
+    .spaceship { color: #52B3D9; } /* Nebula Blue */
+    .starlog { color: #3F2A8D; } /* Cosmic Purple */
+    .dailytask { color: #5F7DBF; } /* Stardust Blue */
+    .other { color: #B0B0B0; } /* Celestial Gray */
+  </style>
+</head>
+<body>
+  <!-- To-Do List Section -->
+  <h1>NEBula Notes</h1>
+  <p>Your stellar to-do lists begin here!</p>
+  <p>Add tasks:</p>
+  <input id="taskInput" type="text">
+  <button onclick="addTask()">Add</button>
+  <ul id="taskList"></ul>
+  <!-- Task Category Legend -->
+  <div class="legend">
+    <div class="exploration">Exploration: Galactic Red</div>
+    <div class="spaceship">Spaceship Maintenance: Nebula Blue</div>
+    <div class="starlog">Star Logs: Cosmic Purple</div>
+    <div class="dailytask">Daily Tasks: Stardust Blue</div>
+    <div class="other">Other: Celestial Gray</div>
+  </div>
+  <script>
+    function addTask() {
+      var taskText = document.getElementById("taskInput").value; // Get input
+      if (taskText === "") return;
+      // Prompt user to choose a category
+      var category = prompt("Enter task category: (Exploration, Spaceship Maintenance, Star Logs, Daily Tasks, Other)");
+      // Set default category if the user cancels or leaves it blank
+      if (!category) category = "Other";
+      // Create list item and set color based on category
+      var li = document.createElement("li");
+      if (category.toLowerCase() === "exploration") {
+        li.style.backgroundColor = "#9B3D5A"; // Galactic Red
+      } else if (category.toLowerCase() === "spaceship maintenance") {
+        li.style.backgroundColor = "#52B3D9"; // Nebula Blue
+      } else if (category.toLowerCase() === "star logs") {
+        li.style.backgroundColor = "#3F2A8D"; // Cosmic Purple
+      } else if (category.toLowerCase() === "daily tasks") {
+        li.style.backgroundColor = "#5F7DBF"; // Stardust Blue
+      } else {
+        li.style.backgroundColor = "#B0B0B0"; // Celestial Gray
+      }
+      // Create checkbox
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.onclick = function() {
+        li.classList.toggle("completed");
+      };
+      var text = document.createTextNode(taskText); // Add task text
+      var deleteButton = document.createElement("button"); // Create delete button
+      deleteButton.textContent = "Delete"; // Set button text
+      deleteButton.onclick = function() {
+        li.remove(); // Remove task when button is clicked
+      };
+      li.appendChild(checkbox); // Add checkbox to list item
+      li.appendChild(text); // Add task text to list item
+      li.appendChild(deleteButton); // Add delete button to list item
+      document.getElementById("taskList").appendChild(li); // Add list item to the list
+      document.getElementById("taskInput").value = ""; // Clear input field
+    }
+  </script>
+</body>
+</html>
